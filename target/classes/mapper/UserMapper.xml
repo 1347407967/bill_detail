@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.example.bill_detail.pojo.UserMapper">
+    <select id="findAll" resultType="com.example.bill_detail.pojo.User">
+        select a.member_id,a.nickname,a.member_type,b.bill_count,a.create_time,a.bill_sn,a.order_amount,a.total_invite
+        from oms_bill_detail a left join oms_bill b on a.bill_sn=b.bill_sn
+        where b.`status`=0 order by a.create_time desc
+    </select>
+
+    <select id="findByName" parameterType="com.example.bill_detail.pojo.query.Query" resultType="com.example.bill_detail.pojo.User">
+        select a.member_id,a.nickname,a.member_type,b.bill_count,a.create_time,a.bill_sn,a.order_amount,a.total_invite
+        from oms_bill_detail a left join oms_bill b on a.bill_sn=b.bill_sn
+        <where>
+            <if test="nickname != '' and nickname != null">
+                and a.nickname like concat('%',#{nickname},'%')and b.`status`=0
+                or
+                     a.member_id in(select id from ums_member where phone like concat('%',#{nickname},'%'))and b.`status`=0
+
+            </if>
+        </where>
+
+        order by a.create_time desc
+    </select>
+
+    <select id="findByBillSn" parameterType="com.example.bill_detail.pojo.query.Query" resultType="com.example.bill_detail.pojo.bill_detail">
+        select member_id,create_time,bill_sn,order_sn,item_amount,order_amount,dis_amount,nickname,icon,total_invite
+        from oms_bill_detail
+        where bill_sn=#{nickname}
+    </select>
+
+
+
+</mapper>

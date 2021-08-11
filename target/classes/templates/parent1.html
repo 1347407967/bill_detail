@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>邀请人</title>
+    <style>
+        a{text-decoration:none}
+        a:hover{text-decoration:none}
+    </style>
+</head>
+<body>
+<div style="width:100%;margin:20px auto;text-align: center">
+    <div style="display:inline-block;">
+        <h4 th:text="${'平台总用户: '+arg.total}">0 </h4>
+        <a  th:href="@{/}">查看位置</a>
+    </div>
+
+    <form th:action="@{/UserParent}" method="post" >
+        <input type="text" name="nickname">
+        <button type="submit">搜索</button>
+    </form>
+    <table align="center" border="1" cellspacing="0">
+        <tr>
+            <td>用户ID</td>
+            <td>名字</td>
+            <td>注册时间</td>
+            <td>邀请人数</td>
+            <td>邀请人</td>
+            <td>操作</td>
+
+        </tr>
+        <br/>
+        <tr th:each="parent:${arg.list}">
+            <td th:text="${parent.id}">11</td>
+            <td th:text="${parent.nickname}" >24</td>
+            <td th:text="${parent.create_time}">Engineer</td>
+            <td th:text="${parent.count}">James</td>
+            <td th:text="${parent.parent_user_nickname}">24</td>
+            <td>
+                <a th:href="@{/ParentDetail(id=${parent.id})}">操作</a>
+            </td>
+        </tr>
+    </table>
+    <br/>
+    <div>
+        <a th:href="@{/UserParent(pageNum=1)}">[首  页]</a>
+        <a th:href="@{/UserParent(pageNum=${arg.pageNum-1})}">[上一页]</a>
+        <a th:href="@{/UserParent(pageNum=${arg.pageNum+1})}">[下一页]</a>
+        <a th:href="@{/UserParent(pageNum=${arg.pages})}">[末  页]</a>
+    </div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>邀请详情</title>
+    <style>
+        a{text-decoration:none}
+        a:hover{text-decoration:none}
+        img{
+            white:2px
+        }
+    </style>
+</head>
+<body>
+    <div style="width:100%;margin:20px auto;text-align: center">
+        <table align="center" border="1" cellspacing="0">
+            <tr>
+                <td>用户ID</td>
+                <td>用户名字</td>
+                <td>性别</td>
+                <td>电话</td>
+                <td>注册时间</td>
+                <td>头像</td>
+                <td>新老用户</td>
+            </tr>
+            <tr th:each="c:${msg.list}">
+                <td th:text="${c.id}">用户ID</td>
+                <td th:text="${c.nickname}">用户名字</td>
+                <td >
+                    <span th:if="${c.gender} eq 1">男</span>
+                    <span th:if="${c.gender} eq 2">女</span>
+                </td>
+                <td th:text="${c.phone}">电话</td>
+                <td th:text="${c.create_time}">注册时间</td>
+                <td><img th:src="${c.icon}" alt="网络错误" th:width="50px"></td>
+                <td >
+                    <span th:if="${c.is_first} eq 0">新用户</span>
+                    <span th:if="${c.is_first} eq 1">老用户</span>
+                </td>
+            </tr>
+        </table>
+    </div>
+
+</body>
+</html>

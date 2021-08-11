@@ -1,0 +1,25 @@
+spring:
+#持久层
+  datasource:
+    url: jdbc:mysql://rm-bp16tf223745g64vnyo.mysql.rds.aliyuncs.com:3306/mall?useUnicode=true&characterEncoding=utf-8&serverTimezone=Asia/Shanghai
+    username: pinxiang
+    password: sha154jj@452547shuLA
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+  thymeleaf:
+    cache: false #表示前端模板改完不用再重启服务了
+# mybatis注册路径
+mybatis:
+  mapper-locations: classpath:mapper/*.xml
+
+logging:
+  file:
+    name: log/log.log
+  level:
+    root: info
+    com.example.bill_detail: debug
+
+server:
+  port: 8080
+
+

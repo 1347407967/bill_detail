@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>邀请的下级</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
+    <script src="/static/jquery.min.js"></script>
+
+    <!--    <link rel="stylesheet" type="text/css" href="/static/jquery.datetimepicker.css"/>-->
+
+</head>
+<body>
+<div class="ui container " style="margin-top: 10px">
+    <a  th:href="@{/}" class="ui button" style="margin-left: 20px" >团进度</a>
+</div>
+
+<div class="ui container" style="margin-top: 20px">
+    <div class="ui segment menu inverted grid">
+        <div class="six wide column menu ">
+            <i class="chart pie huge icon teal" ></i>
+            <p class="ui header " style="color: white;margin-left: 5px;margin-top: 26px!important;" th:text="${'上级人数: '+arg.total}">0</p>
+        </div>
+        <div class="ten wide column menu">
+            <div class="ui input right item item">
+                <form th:action="@{/UserParent}" method="post">
+                    <div class="ui  input "tabindex="0">
+                        <input type="text" name="nickname"  style="margin-right: 10px" placeholder="用户名/手机号" >
+                        <input type="submit" value="搜索" style="color: cadetblue !important;" class="ui button" >
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <table class="ui celled table">
+        <thead>
+        <tr>
+            <th>用户ID</th>
+            <th >用户名字</th>
+            <th >注册时间</th>
+            <th>邀请人数</th>
+            <th >邀请人</th>
+            <th>操作</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="c:${arg.list}">
+            <td th:text="${c.id}">James</td>
+            <td th:text="${c.nickname}" >24</td>
+            <td th:text="${c.create_time}">Engineer</td>
+            <td th:text="${c.count}">James</td>
+            <td th:text="${c.parent_user_nickname}" >24</td>
+            <td>
+                <a href="" >详情</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+    <div class="ui segment ">
+        <div class="ui left item" style="text-align: center">
+            <a th:href="@{/UserParent(pageNum=${arg.pageNum}-1)}" class="ui button basic teal" style="margin-right: 5px" th:unless="${arg.isFirstPage}">上一页</a>
+            <td>第
+                <a th:text="${arg.pageNum}">2</a>页/共
+                <a th:text="${arg.pages}">2</a>页/共
+                <a th:text="${arg.total}">2</a>条数据
+            </td>
+            <a th:href="@{/UserParent(pageNum=${arg.pageNum}+1)}" class="ui button basic teal" style="margin-left: 5px" th:unless="${arg.isLastPage}">下一页</a>
+        </div>
+    </div>
+</div>
+
+<script>
+
+</script>
+
+</body>
+</html>

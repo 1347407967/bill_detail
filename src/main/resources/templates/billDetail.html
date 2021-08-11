@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>首 页</title>
+</head>
+<style>
+    a{text-decoration:none}
+    a:hover{text-decoration:none}
+    img{
+        white:2px
+    }
+</style>
+<body>
+    <a th:href="@{/}">《 返回</a>
+    <div style="width:100%;margin:20px auto;text-align: center">
+        <table align="center" border="1" cellspacing="0">
+            <tr>
+                <td>用户ID</td>
+                <td>创建时间</td>
+                <td>团号</td>
+                <td>订单号</td>
+                <td>商品价格</td>
+                <td>实付价格</td>
+                <td>返现</td>
+                <td>名字</td>
+                <td>头像</td>
+                <td>邀请次数</td>
+            </tr>
+            <tr th:each="c:${msg.list}">
+                <td th:text="${c.member_id}">用户ID</td>
+                <td th:text="${c.create_time}">创建时间</td>
+                <td th:text="${c.bill_sn}">团号</td>
+                <td th:text="${c.order_sn}">订单号</td>
+                <td th:text="${c.item_amount}">商品价格</td>
+                <td th:text="${c.order_amount}">实付价格</td>
+                <td th:text="${c.dis_amount}">返现</td>
+                <td th:text="${c.nickname}">名字</td>
+                <td ><img th:src="${c.icon}" th:width="50px"></td>
+                <td th:text="${c.total_invite}">邀请次数</td>
+            </tr>
+        </table>
+    </div>
+
+
+</body>
+</html>

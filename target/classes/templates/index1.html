@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>首 页</title>
+</head>
+<style>
+    a{text-decoration:none}
+    a:hover{text-decoration:none}
+</style>
+<body>
+<div style="width:100%;margin:20px auto;text-align: center">
+    <div>
+        <h4 th:text="${'待成团: '+arg.total}">0</h4>
+<!--        <a th:href="@{/UserParent}" type="button">团详情</a>-->
+    </div>
+    <form th:action="@{/}" method="post">
+        <input type="text" name="nickname">
+        <button type="submit">搜索</button>
+    </form>
+    <table align="center" border="1" cellspacing="0">
+        <tr>
+            <td>用户ID</td>
+            <td>用户名字</td>
+            <td>团位置</td>
+            <td>团人数</td>
+            <td>创建时间</td>
+            <td>团号</td>
+            <td>实付价格</td>
+            <td>助力人数</td>
+            <td>操作</td>
+        </tr>
+        <br/>
+        <tr th:each="user:${arg.list}">
+            <td th:text="${user.member_id}">James</td>
+            <td th:text="${user.nickname}" >24</td>
+            <td th:text="${user.member_type}">Engineer</td>
+            <td th:text="${user.bill_count}">James</td>
+            <td th:text="${user.create_time}" >24</td>
+            <td th:text="${user.bill_sn}">Engineer</td>
+            <td th:text="${user.order_amount}">James</td>
+            <td th:text="${user.total_invite}">James</td>
+            <td>
+                <a th:href="@{/BillDetail(nickname=${user.bill_sn})}" >详情</a>
+            </td>
+        </tr>
+    </table>
+    <br/>
+    <div>
+        <a th:href="@{/(pageNum=1)}">[首  页]</a>
+        <a th:href="@{/(pageNum=${arg.pageNum-1})}">[上一页]</a>
+        <a th:href="@{/(pageNum=${arg.pageNum+1})}">[下一页]</a>
+        <a th:href="@{/(pageNum=${arg.pages})}">[末  页]</a>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.example.bill_detail.pojo.UserParentMapper">
+    <select id="findUserParent" resultType="com.example.bill_detail.pojo.UserParent">
+        SELECT m.id,m.nickname,m.create_time, (select count(1) from ums_member where parent_user_id = m.invite_code) count ,
+        (select nickname from ums_member where invite_code = m.parent_user_id) parent_user_nickname
+        FROM `ums_member` m order by m.create_time desc
+    </select>
+    
+    <select id="findUserParentByName" parameterType="com.example.bill_detail.pojo.query.Query" resultType="com.example.bill_detail.pojo.UserParent">
+        SELECT m.id,m.nickname,m.create_time, (select count(1) from ums_member where parent_user_id = m.invite_code) count ,
+        (select nickname from ums_member where invite_code = m.parent_user_id) parent_user_nickname
+        FROM `ums_member` m
+        <where>
+            <if test="nickname!='' and nickname!=null">
+                and m.nickname like concat('%',#{nickname},'%')
+                or
+                m.id in(select id from ums_member where phone like concat('%',#{nickname},'%'))
+            </if>
+        </where>
+    </select>
+
+    <select id="findParentDetail" parameterType="com.example.bill_detail.pojo.query.Query" resultType="com.example.bill_detail.pojo.ParentDetail">
+        select id,nickname,gender,phone,create_time,icon,is_first
+        from ums_member where parent_user_id in(select invite_code from ums_member where id=#{id})
+    </select>
+</mapper>
